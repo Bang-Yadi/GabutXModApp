@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GabutXModApp - Download Aplikasi MOD Gratis</title>
+    <meta name="description" content="Download aplikasi premium Mod APK terbaru, gratis, dan aman. Update setiap hari dengan fitur pro terbuka.">
+    <meta name="keywords" content="mod apk, download aplikasi mod, aplikasi premium gratis, gabutxmodapp, apk pro">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        },
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid #334155;
+        }
+
+        .snap-x-mandatory { scroll-snap-type: x mandatory; }
+        .snap-center { scroll-snap-align: center; }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-300 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="glass-nav fixed w-full z-30 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-4">
+                
+                <div class="flex items-center gap-3">
+                    <!-- Mobile Menu Button -->
+                    <button onclick="app.toggleDrawer()" class="md:hidden text-slate-300 hover:text-white p-1 transition-colors">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+
+                    <!-- Logo -->
+                    <a href="#/home" class="flex-shrink-0 flex items-center gap-2">
+                        <i class="ph-fill ph-android-logo text-3xl text-brand-500"></i>
+                        <span class="font-bold text-xl text-white tracking-tight hidden sm:block">GabutXMod<span class="text-brand-500">App</span></span>
+                    </a>
+                </div>
+                
+                <!-- Real-time Search -->
+                <div class="flex-1 max-w-xl relative">
+                    <div class="relative">
+                        <i class="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="search-input" placeholder="Cari aplikasi atau developer" 
+                            class="w-full bg-dark-card border border-dark-border rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-white placeholder-slate-500">
+                    </div>
+                    <!-- Search Results Dropdown -->
+                    <div id="search-results" class="hidden absolute w-full mt-2 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden z-50 max-h-80 overflow-y-auto">
+                        <!-- Results injected here -->
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="https://lnk.bio/BangYadi" class="text-slate-300 hover:text-brand-500 font-medium text-sm flex items-center gap-1.5 transition-colors bg-dark-card border border-dark-border px-3 py-1.5 rounded-full">
+                        <i class="ph-fill ph-paper-plane-tilt text-brand-500"></i> Request Mod
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style='padding:0px; margin:0px; background-color:black; border:1px solid blue; border-radius:5px;'>
+<div style='overflow: hidden; white-space: nowrap;'><div style='color: white; display: inline-block; animation: jalan 10s linear infinite;'>Masih sedikit karena baru saya buat, sabar aja kalau saya tidak malas, ntar makin lama makin banyak mod yang tersedia ^_^</div></div><style>@keyframes jalan {0% { transform: translateX(100%); }100% { transform: translateX(-100%); }}</style>
+</div>
+    </nav>
+
+    <!-- Mobile Drawer (Sidebar) -->
+    <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="app.toggleDrawer()"></div>
+    <div id="mobile-drawer" class="fixed top-0 left-0 w-72 h-full bg-dark-card border-r border-dark-border z-50 transform -translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b border-dark-border flex items-center justify-between">
+            <a href="#/home" class="flex items-center gap-2" onclick="app.toggleDrawer();">
+                <i class="ph-fill ph-android-logo text-3xl text-brand-500"></i>
+                <span class="font-bold text-xl text-white tracking-tight">GabutXMod<span class="text-brand-500">App</span></span>
+            </a>
+            <button onclick="app.toggleDrawer()" class="text-slate-400 hover:text-white">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 flex-grow overflow-y-auto space-y-2">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 mt-4 px-2">Menu Utama</p>
+            <a href="#/home" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
+                <i class="ph ph-house text-xl text-slate-400"></i> Beranda
+            </a>
+            <!-- Menggunakan Hash Link untuk navigasi Genre -->
+            <a href="#/genre/Televisi" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
+                <i class="ph ph-television text-xl text-slate-400"></i> Live Televisi
+            </a>
+            <a href="#/genre/Streaming" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
+                <i class="ph ph-video text-xl text-slate-400"></i> Stream Movie/Series
+            </a>
+
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-2">Layanan Pengguna</p>
+            <a href="https://bio.link/bangyadi" target="_blank" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-emerald-400 hover:bg-emerald-900/30 rounded-xl transition-colors text-left font-medium border border-emerald-500/20">
+                <i class="ph-fill ph-coffee text-xl"></i> Dukung Modder
+            </a>
+            <a href="https://lnk.bio/BangYadi" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-brand-400 hover:bg-brand-900/30 rounded-xl transition-colors text-left font-medium border border-brand-500/20">
+                <i class="ph-fill ph-paper-plane-tilt text-xl"></i> Request Mod Aplikasi
+            </a>
+            <a href="https://t.me/+I-bDRewpOg4yZWFl" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-[#0088cc] hover:text-white rounded-xl transition-colors">
+                <i class="ph-fill ph-telegram-logo text-xl"></i> Channel Telegram
+            </a>
+        </div>
+        
+        <div class="p-6 border-t border-dark-border">
+            <p class="text-xs text-slate-500 text-center">Created by Gemini AI ^_^</p>
+        </div>
+    </div>
+
+    <!-- Main Content Container (SPA) -->
+    <main class="flex-grow pt-24 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" id="main-content">
+        
+        <!-- ========================================== -->
+        <!-- VIEW: HOME -->
+        <!-- ========================================== -->
+        <section id="view-home" class="block">
+            <div class="mb-8 text-center md:text-left">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Aplikasi MOD <span class="text-brand-500">Gratis</span></h1>
+                <p class="text-slate-400 max-w-2xl">Disini kamu bisa download mod yang mungkin tidak tersedia di blogger. Semua dijamin aman, link downloadnya juga mudah<br><span class="text-brand-500"><b>anti shortlink, anti password, anti key login ^_^</b></span></p>
+            </div>
+
+            <!-- Categories / Filter -->
+            <div class="flex gap-3 overflow-x-auto pb-4 mb-6 scrollbar-hide" id="genre-filters">
+                <!-- Filters injected here -->
+            </div>
+
+            <!-- App Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="home-grid">
+                <!-- App Cards injected here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-10 flex justify-center gap-2" id="pagination-controls">
+                <!-- Buttons injected here -->
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW: APP DETAIL -->
+        <!-- ========================================== -->
+        <section id="view-detail" class="hidden animate-fade-in">
+            <a href="#/home" class="mb-6 flex items-center gap-2 text-slate-400 hover:text-brand-500 transition-colors w-fit font-medium">
+                <i class="ph ph-arrow-left"></i> Kembali ke Beranda
+            </a>
+            
+            <div class="bg-dark-card border border-dark-border rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                    <!-- Icon -->
+                    <img id="detail-icon" src="" alt="App Icon" class="w-32 h-32 md:w-40 md:h-40 rounded-3xl shadow-xl object-cover bg-dark-bg border border-dark-border">
+                    
+                    <!-- Info -->
+                    <div class="flex-1 w-full">
+                        <h1 id="detail-title" class="text-2xl md:text-4xl font-bold text-white mb-2"></h1>
+                        <a id="detail-developer" href="#" class="text-brand-500 text-lg mb-4 hover:underline inline-block font-medium"></a>
+                        
+                        <!-- Advanced Meta Info (Updated At replaced Rating) -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6 text-sm">
+                            <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
+                                <i class="ph-fill ph-calendar-blank text-brand-500 text-lg"></i>
+                                <div><p class="text-xs text-slate-500">Di Update Pada</p><p id="detail-updated" class="font-bold text-white leading-none"></p></div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
+                                <i class="ph ph-android-logo text-green-500 text-lg"></i>
+                                <div class="truncate"><p class="text-xs text-slate-500">OS Minimum</p><p id="detail-android" class="font-bold text-white leading-none truncate"></p></div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
+                                <i class="ph ph-cpu text-slate-400 text-lg"></i>
+                                <div class="truncate"><p class="text-xs text-slate-500">Arsitektur</p><p id="detail-arch" class="font-bold text-white leading-none truncate"></p></div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
+                                <i class="ph ph-info text-slate-400 text-lg"></i>
+                                <div class="truncate"><p class="text-xs text-slate-500">Versi</p><p id="detail-version" class="font-bold text-white leading-none truncate"></p></div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
+                                <i class="ph ph-file-archive text-slate-400 text-lg"></i>
+                                <div><p class="text-xs text-slate-500">Ukuran</p><p id="detail-size" class="font-bold text-white leading-none"></p></div>
+                            </div>
+                            <a id="detail-package-link" href="#" target="_blank" class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border hover:border-brand-500 hover:bg-brand-900/10 transition-colors group cursor-pointer">
+                                <i class="ph ph-google-play-logo text-slate-400 group-hover:text-brand-500 text-lg transition-colors"></i>
+                                <div class="truncate"><p class="text-xs text-slate-500">Package Name</p><p id="detail-package" class="font-bold text-white leading-none truncate group-hover:text-brand-400"></p></div>
+                            </a>
+                        </div>
+
+                        <!-- Mod Info Alert (List Expand/Collapse) -->
+                        <div class="bg-brand-900/20 border border-brand-500/30 rounded-xl p-5 mb-6 flex gap-3 items-start backdrop-blur-sm">
+                            <i class="ph-fill ph-magic-wand text-brand-500 text-xl mt-0.5"></i>
+                            <div class="flex-1 w-full">
+                                <h3 class="font-bold text-brand-100 text-sm mb-2">Fitur MOD:</h3>
+                                <div id="detail-modinfo-container" class="text-brand-50 text-sm">
+                                    <!-- Mod list injected here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Download Button -->
+                        <button onclick="app.showDownloadModal()" class="w-full md:w-auto bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-brand-500/20 transition-all flex items-center justify-center gap-2 text-lg active:scale-95">
+                            <i class="ph-bold ph-download-simple"></i>
+                            Download APK
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Screenshots Gallery -->
+                <div class="mt-10 pt-8 border-t border-dark-border">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="ph ph-image text-brand-500"></i> Screenshot App
+                    </h2>
+                    <div id="detail-screenshots" class="flex gap-4 overflow-x-auto pb-4 snap-x-mandatory scrollbar-hide">
+                        <!-- Screenshots injected here -->
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mt-8 pt-8 border-t border-dark-border">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="ph ph-text-align-left text-brand-500"></i> Deskripsi Aplikasi
+                    </h2>
+                    <div class="relative">
+                        <div id="detail-description" class="prose prose-invert max-w-none text-slate-400 leading-relaxed line-clamp-3 transition-all duration-300 overflow-hidden">
+                            <!-- Description injected here -->
+                        </div>
+                        <button id="detail-desc-btn" onclick="app.toggleDescription()" class="mt-3 text-brand-500 font-medium hover:text-brand-400 text-sm flex items-center gap-1 transition-colors">
+                            Baca Selengkapnya <i class="ph ph-caret-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Apps Section -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold text-white mb-6">Aplikasi Sejenis</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="detail-related">
+                    <!-- Related Apps injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW: DEVELOPER -->
+        <!-- ========================================== -->
+        <section id="view-developer" class="hidden">
+            <a href="#/home" class="mb-6 flex items-center gap-2 text-slate-400 hover:text-brand-500 transition-colors w-fit font-medium">
+                <i class="ph ph-arrow-left"></i> Kembali ke Beranda
+            </a>
+            
+            <div class="bg-dark-card border border-dark-border rounded-2xl p-8 mb-8 text-center md:text-left flex flex-col md:flex-row items-center gap-6">
+                <div class="w-20 h-20 bg-dark-bg rounded-full flex items-center justify-center border border-dark-border shadow-lg">
+                    <i class="ph-fill ph-code text-4xl text-brand-500"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" id="dev-name-title">Nama Developer</h1>
+                    <p class="text-slate-400">Menampilkan semua karya aplikasi dari developer ini.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="dev-grid">
+                <!-- Apps by Dev injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-dark-border py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div class="flex items-center justify-center gap-2">
+                <i class="ph-fill ph-android-logo text-2xl text-slate-400"></i>
+                <span class="font-bold text-lg text-slate-300">GabutXModApp</span>
+            </div>
+            <p class="text-slate-500 text-sm">
+                &copy; <span id="copyright-year"></span> GabutXModApp Store. <br class="hidden md:block">Download mod secara gratis, anti shortlink, anti password.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Download Modal -->
+    <div id="download-modal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="app.closeDownloadModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-md shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modal-card">
+                <div class="p-6 border-b border-dark-border flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="ph-fill ph-cloud-arrow-down text-brand-500"></i> Server Download
+                    </h3>
+                    <button onclick="app.closeDownloadModal()" class="text-slate-400 hover:text-white bg-dark-bg rounded-full p-1">
+                        <i class="ph ph-x text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto">
+                    <div class="flex items-center gap-4 mb-6 bg-dark-bg p-4 rounded-xl border border-dark-border shadow-inner">
+                        <img id="modal-app-icon" src="" class="w-14 h-14 rounded-xl object-cover">
+                        <div>
+                            <p id="modal-app-title" class="text-white font-bold line-clamp-1"></p>
+                            <p id="modal-app-size" class="text-slate-400 text-sm mt-0.5"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3" id="download-links-container">
+                        <!-- Links injected here -->
+                    </div>
+                    
+                    <p class="text-xs text-center text-slate-500 mt-6 flex items-center justify-center gap-1.5 bg-brand-900/10 py-2 rounded-lg border border-brand-500/10">
+                        <i class="ph-fill ph-shield-check text-brand-500 text-lg"></i> Mod dari Yadi Fernando di jamin aman :)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        /**
+         * DATABASE APLIKASI (ModInfo menjadi Array, Rating diganti UpdatedAt)
+         */
+        const appsDatabase = [
+            {
+                id: "app-bittv",
+                title: "BitTV",
+                developer: "Duktek Digital",
+                whatsNew: "<b>• Fix bug<br>• Improvement UI</b>",
+                packageName: "com.live_streaming_tv.online_tv",
+                minAndroid: "Android 7.0+",
+                architecture: "armv7 & arm64",
+                genre: "Televisi",
+                version: "2.1.5-specter",
+                size: "8,94 MB",
+                updatedAt: "06 Mar 2026",
+                modInfo: [
+                    "Tanpa Iklan",
+                    "Bypass Dialog Iklan",
+                    "Menghapus Bagian Layout Donasi",
+                    "Support Android TV",
+                    "Fix Crash App (bypass signature)"
+                ],
+                description: "BitTV adalah aplikasi yang bisa kamu gunakan untuk streaming tv online dan streaming sport seperti sepak bola dan lain-lain secara gratis. Versi Mod ini memungkinkan kamu untuk menggunakan aplikasi sepenuhnya tanpa ganggu Iklan.",
+                icon: "https://gcdnb.pbrd.co/images/RF1pw1QjjoVk.png",
+                screenshots: ["https://www.dropbox.com/scl/fi/0np4aa2y7veb8xbo0edue/Screenshot_2026-03-06-13-21-28-338_com.live_streaming_tv.online_tv.jpg?rlkey=gsmtgf13cfipvwa1he75z9cyx&st=x2c51vgp&dl=1", "https://www.dropbox.com/scl/fi/no04d5eee5rik2hxhqun6/Screenshot_2026-03-06-13-21-34-052_com.live_streaming_tv.online_tv.jpg?rlkey=3wr45dsl9ta6t0osskl4zpfo6&st=7enozig1&dl=1", "https://www.dropbox.com/scl/fi/ioefmtny57964ahx85u0v/Screenshot_2026-03-06-13-21-41-708_com.live_streaming_tv.online_tv.jpg?rlkey=0ibaksu8d05hls0z2wj9hzww3&st=gjcfzxzl&dl=1", "https://www.dropbox.com/scl/fi/ecner7dbtcvmqjyvruclo/Screenshot_2026-03-06-13-22-05-243_com.live_streaming_tv.online_tv.jpg?rlkey=1kxvy3vfn958fjz6lmewp5zps&st=3p8drrrw&dl=1"],
+                downloadLinks: [{ name: "Link MediaFire", url: "https://www.mediafire.com/file/jq2uomj74o8gnm1/B1tTV_v2.1.5-specter_%255BNoIkl4n%255D_sign.apk/file" }, { name: "Link SFile.co", url: "https://sfile.co/fvbva1HIRh9" }]
+            },
+            {
+                id: "app-hitv-patrino",
+                title: "HiTV",
+                developer: "Super drama world",
+                packageName: "com.rheia.patrino",
+                minAndroid: "Android 6.0+",
+                architecture: "armv7 & arm64",
+                genre: "Streaming",
+                version: "3.13.3",
+                size: "60 MB",
+                updatedAt: "08 Mar 2026",
+                modInfo: [
+                    "Vip Lifetime & Tanpa Iklan",
+                    "Unlock Shorts",
+                    "Unlock 1080p+",
+                    "Unlock Download VIP",
+                    "Support Mirroring ke TV"
+                ],
+                description: "Selami dunia hiburan Asia dengan HiTV, aplikasi pilihan Anda untuk drama dan film berkualitas tinggi. Jelajahi drama Korea yang menawan, serial Tiongkok yang menarik, dan hiburan Thailand yang semarak. Perpustakaan kami terus diperbarui dengan konten segar. Nikmati beragam koleksi acara TV dan film yang memenuhi semua selera. Temukan romansa, aksi, epos sejarah, dan komedi dari Korea, Tiongkok, Thailand, dan banyak lagi.",
+                icon: "https://play-lh.googleusercontent.com/eaeHD0U17lV513XMJajR47ARMnn0OEI00sEtbPyw6zIClSm8vkNHXdrCvdRO17z_OA=w480-h960-rw",
+                screenshots: ["https://www.dropbox.com/scl/fi/ngdj1lribncsqcuhu1ui5/Screenshot_2026-03-07-14-18-19-180_com.rheia.patrino.jpg?rlkey=ckt0o19u1du1esaesd26dob0p&st=dvheb4qg&dl=1", "https://www.dropbox.com/scl/fi/5cnsjby0vg8x8wcidq3p8/Screenshot_2026-03-07-14-17-48-015_com.rheia.patrino.jpg?rlkey=j9irgcu4vm2vquuiqqnfsby2d&st=t9swgn6p&dl=1", "https://www.dropbox.com/scl/fi/pbgt3u2z1f8zpqrv6ormh/Screenshot_2026-03-07-14-20-45-116_com.rheia.patrino.jpg?rlkey=7u4kdw2d0mxtlaay28100vimt&st=z3296qry&dl=1", "https://www.dropbox.com/scl/fi/zgjxpk1ydld5lwi9oetle/Screenshot_2026-03-07-14-21-15-581_com.rheia.patrino.jpg?rlkey=0d59c0dxc35jvpdimzrn5dj7s&st=ba8wzxcu&dl=1", "https://www.dropbox.com/scl/fi/w9m9f95izv5eje5x8zy7f/Screenshot_2026-03-07-14-21-42-705_com.rheia.patrino.jpg?rlkey=5idwfd6udm2oo9lhgdi2sqsu9&st=3iucnw7a&dl=1"],
+                downloadLinks: [{ name: "Link Masih Diproses", url: "#" }, { name: "Link Masih Diproses", url: "#" }]
+            },
+            {
+                id: "app-netflix",
+                title: "Netflix (Clone Mod)",
+                developer: "Netflix, Inc.",
+                packageName: "com.netflix.mediaclient",
+                minAndroid: "Android 6.0+",
+                architecture: "universal (all arm)",
+                genre: "Streaming",
+                version: "9.57.0 build 3 64090",
+                size: "70 MB",
+                updatedAt: "08 Mar 2026",
+                modInfo: [
+                    "Premium Clone (Mengambil database film pihak ketiga)",
+                    "Tanpa Iklan Yang Mengganggu",
+                    "Nonton Sepuasnya Tanpa Login Akun atau Bisa Juga Login (opsional)",
+                    "Server Nonton Yang Bisa Kamu Pilih",
+                    "Resolusi SD - HD Tersedia",
+                    "Subtitle Yang Bisa Kamu Pilih"
+                ],
+                description: "Mencari acara TV dan film yang paling banyak dibicarakan dari seluruh dunia? Semuanya ada di Netflix. Versi Clone Mod ini adalah aplikasi clone streaming yang mengambil library dari database film raksasa dengan antarmuka yang sangat mirip dengan Netflix asli. Anda tidak perlu membuat akun untuk mulai menonton.",
+                icon: "https://play-lh.googleusercontent.com/TBRwjS_qfJCSj1m7zZB93FnpJM5fSpMA_wUlFDLxWAb45T9RmwBvQd5cWR5viJJOhkI=w480-h960-rw",
+                screenshots: ["https://www.dropbox.com/scl/fi/daz46spcg3fvwh496ezsd/Screenshot_2026-03-08-13-10-00-311_com.netflix.mediaclient.mod.jpg?rlkey=3n3khd9skyjbuyckxqmstgtxi&st=il48epre&dl=1", "https://www.dropbox.com/scl/fi/g29ukpw7cypdw4xts3t9k/Screenshot_2026-03-08-13-13-08-518_com.netflix.mediaclient.mod.jpg?rlkey=gg58ouanp2q1zrwiugm3xlah4&st=6elaxidc&dl=1", "https://www.dropbox.com/scl/fi/5hur8qep31fig5lkt6g0d/Screenshot_2026-03-08-13-15-09-334_com.netflix.mediaclient.mod.jpg?rlkey=794wsr723ove09grr99w2o7jh&st=6pc5cw0n&dl=1", "https://www.dropbox.com/scl/fi/qnqdgr0kvwflvcwyl6eu1/Screenshot_2026-03-08-13-18-46-777_com.netflix.mediaclient.mod.jpg?rlkey=d82s43zv7uob3b82lvhz1739x&st=r8k23ziy&dl=1"],
+                downloadLinks: [{ name: "Masih Diproses", url: "#" }, { name: "Belum Tersedia", url: "#" }]
+            }
+        ];
+
+        /**
+         * ENGINE APLIKASI UTAMA (Routing & State)
+         */
+        const app = {
+            state: {
+                activeGenre: 'Semua',
+                currentPage: 1,
+                itemsPerPage: 12,
+                selectedAppForModal: null,
+                isDrawerOpen: false,
+                isDescExpanded: false,
+                isModExpanded: false
+            },
+
+            init() {
+                // Set Copyright Year
+                document.getElementById('copyright-year').textContent = new Date().getFullYear();
+                
+                // Initialize Search Listeners
+                this.setupSearch();
+                
+                // Set up Hash Routing Listener
+                window.addEventListener('hashchange', () => this.handleRouting());
+                
+                // Trigger initial route
+                this.handleRouting();
+            },
+
+            // --- Routing System (Deep Linking) ---
+            handleRouting() {
+                // Sembunyikan semua view
+                document.getElementById('view-home').classList.add('hidden');
+                document.getElementById('view-detail').classList.add('hidden');
+                document.getElementById('view-developer').classList.add('hidden');
+                
+                // Tutup drawer & search jika terbuka
+                if(this.state.isDrawerOpen) this.toggleDrawer();
+                document.getElementById('search-results').classList.add('hidden');
+                document.getElementById('search-input').value = '';
+                
+                // Scroll ke atas dengan mulus
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                const hash = window.location.hash;
+
+                // Routing Logic
+                if (hash.startsWith('#/app/')) {
+                    const appId = hash.replace('#/app/', '');
+                    this.renderDetail(appId);
+                } 
+                else if (hash.startsWith('#/developer/')) {
+                    const devName = decodeURIComponent(hash.replace('#/developer/', ''));
+                    this.renderDeveloper(devName);
+                }
+                else if (hash.startsWith('#/genre/')) {
+                    const genre = decodeURIComponent(hash.replace('#/genre/', ''));
+                    this.state.activeGenre = genre;
+                    this.state.currentPage = 1; // Reset halaman
+                    document.getElementById('view-home').classList.remove('hidden');
+                    this.renderGenreFilters();
+                    this.renderHome();
+                }
+                else {
+                    // Default to Home (Semua Kategori)
+                    this.state.activeGenre = 'Semua';
+                    document.getElementById('view-home').classList.remove('hidden');
+                    this.renderGenreFilters();
+                    this.renderHome();
+                }
+            },
+
+            // --- Drawer Logic ---
+            toggleDrawer() {
+                const drawer = document.getElementById('mobile-drawer');
+                const backdrop = document.getElementById('drawer-backdrop');
+                
+                this.state.isDrawerOpen = !this.state.isDrawerOpen;
+                
+                if (this.state.isDrawerOpen) {
+                    backdrop.classList.remove('hidden');
+                    void backdrop.offsetWidth; // Force reflow
+                    backdrop.classList.add('opacity-100');
+                    backdrop.classList.remove('opacity-0');
+                    drawer.classList.remove('-translate-x-full');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    backdrop.classList.remove('opacity-100');
+                    backdrop.classList.add('opacity-0');
+                    drawer.classList.add('-translate-x-full');
+                    document.body.style.overflow = '';
+                    setTimeout(() => backdrop.classList.add('hidden'), 300);
+                }
+            },
+
+            // --- Home Page Render ---
+            renderHome() {
+                const grid = document.getElementById('home-grid');
+                grid.innerHTML = '';
+
+                let filteredApps = appsDatabase;
+                if (this.state.activeGenre !== 'Semua') {
+                    filteredApps = appsDatabase.filter(app => app.genre === this.state.activeGenre);
+                }
+
+                const totalItems = filteredApps.length;
+                const totalPages = Math.ceil(totalItems / this.state.itemsPerPage);
+                
+                const startIndex = (this.state.currentPage - 1) * this.state.itemsPerPage;
+                const endIndex = startIndex + this.state.itemsPerPage;
+                const appsToRender = filteredApps.slice(startIndex, endIndex);
+
+                if (appsToRender.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full text-center py-16 bg-dark-card border border-dark-border rounded-2xl text-slate-400">Tidak ada aplikasi dalam kategori ini.</div>`;
+                }
+
+                appsToRender.forEach(app => {
+                    grid.innerHTML += this.createAppCardHTML(app);
+                });
+
+                this.renderPaginationControls(totalPages);
+            },
+
+            // Menggunakan tag <a> dan menampilkan UpdatedAt di Card
+            createAppCardHTML(app) {
+                // Mengambil 1 atau 2 fitur pertama untuk preview di kartu
+                const modPreview = Array.isArray(app.modInfo) ? app.modInfo[0] : app.modInfo;
+
+                return `
+                    <a href="#/app/${app.id}" class="block bg-dark-card border border-dark-border rounded-2xl overflow-hidden hover:border-brand-500 transition-all duration-300 group cursor-pointer flex flex-col h-full hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-500/10">
+                        <div class="p-5 flex-grow">
+                            <div class="flex items-start gap-4">
+                                <img src="${app.icon}" alt="${app.title}" class="w-16 h-16 rounded-xl shadow-md object-cover bg-dark-bg group-hover:scale-105 transition-transform duration-300 border border-dark-border">
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-bold text-white text-lg truncate group-hover:text-brand-500 transition-colors" title="${app.title}">${app.title}</h3>
+                                    <p class="text-slate-400 text-sm mb-1 truncate">${app.developer}</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <div class="flex items-center gap-1 bg-dark-bg px-2 py-0.5 rounded text-xs border border-dark-border text-slate-300">
+                                            <i class="ph-fill ph-calendar-blank text-brand-500"></i>
+                                            <span class="truncate">${app.updatedAt}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-dark-border">
+                                <p class="text-xs text-brand-400 font-medium line-clamp-2 bg-brand-900/10 px-3 py-2 rounded-lg border border-brand-500/20 leading-relaxed">
+                                    <i class="ph-fill ph-magic-wand mr-1"></i> ${modPreview} ${Array.isArray(app.modInfo) && app.modInfo.length > 1 ? '<span class="text-slate-500 ml-1">...</span>' : ''}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            },
+
+            renderPaginationControls(totalPages) {
+                const controls = document.getElementById('pagination-controls');
+                controls.innerHTML = '';
+                if (totalPages <= 1) return; 
+
+                const prevBtn = document.createElement('button');
+                prevBtn.className = `px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 ${this.state.currentPage === 1 ? 'bg-dark-bg border border-dark-border text-slate-600 cursor-not-allowed' : 'bg-dark-card text-white hover:bg-brand-600 border border-dark-border hover:border-brand-500 transition-all active:scale-95'}`;
+                prevBtn.innerHTML = '<i class="ph-bold ph-caret-left"></i> Prev';
+                prevBtn.disabled = this.state.currentPage === 1;
+                prevBtn.onclick = () => {
+                    this.state.currentPage--;
+                    this.renderHome();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                controls.appendChild(prevBtn);
+
+                const infoText = document.createElement('span');
+                infoText.className = 'px-4 flex items-center text-slate-400 text-sm font-medium';
+                infoText.textContent = `Hal ${this.state.currentPage} / ${totalPages}`;
+                controls.appendChild(infoText);
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = `px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 ${this.state.currentPage === totalPages ? 'bg-dark-bg border border-dark-border text-slate-600 cursor-not-allowed' : 'bg-dark-card text-white hover:bg-brand-600 border border-dark-border hover:border-brand-500 transition-all active:scale-95'}`;
+                nextBtn.innerHTML = 'Next <i class="ph-bold ph-caret-right"></i>';
+                nextBtn.disabled = this.state.currentPage === totalPages;
+                nextBtn.onclick = () => {
+                    this.state.currentPage++;
+                    this.renderHome();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                controls.appendChild(nextBtn);
+            },
+
+            // Merender tombol Filter menggunakan Hash Routing
+            renderGenreFilters() {
+                const container = document.getElementById('genre-filters');
+                const genres = ['Semua', ...new Set(appsDatabase.map(a => a.genre))];
+                
+                container.innerHTML = genres.map(genre => {
+                    const hrefUrl = genre === 'Semua' ? '#/home' : `#/genre/${encodeURIComponent(genre)}`;
+                    return `
+                        <a href="${hrefUrl}" 
+                            class="whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all border snap-start ${
+                                this.state.activeGenre === genre 
+                                ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' 
+                                : 'bg-dark-card text-slate-400 border-dark-border hover:bg-dark-border hover:text-white block'
+                            }">
+                            ${genre}
+                        </a>
+                    `;
+                }).join('');
+            },
+
+            // --- Detail Page Render & Logic ---
+            renderDetail(appId) {
+                const appData = appsDatabase.find(a => a.id === appId);
+                if (!appData) {
+                    alert("Aplikasi tidak ditemukan.");
+                    window.location.hash = '#/home';
+                    return;
+                }
+
+                document.getElementById('view-detail').classList.remove('hidden');
+                this.state.selectedAppForModal = appData;
+
+                // Reset Description & Mod States
+                this.state.isDescExpanded = false;
+                this.state.isModExpanded = false;
+
+                const descEl = document.getElementById('detail-description');
+                const btnEl = document.getElementById('detail-desc-btn');
+                descEl.classList.add('line-clamp-3');
+                btnEl.innerHTML = 'Baca Selengkapnya <i class="ph ph-caret-down"></i>';
+
+                // Populate Info
+                document.getElementById('detail-icon').src = appData.icon;
+                document.getElementById('detail-title').textContent = appData.title;
+                
+                const devEl = document.getElementById('detail-developer');
+                devEl.textContent = appData.developer;
+                devEl.href = `#/developer/${encodeURIComponent(appData.developer)}`;
+
+                // Mengganti Rating dengan Updated At
+                document.getElementById('detail-updated').textContent = appData.updatedAt;
+                
+                document.getElementById('detail-version').textContent = appData.version;
+                document.getElementById('detail-size').textContent = appData.size;
+                
+                document.getElementById('detail-android').textContent = appData.minAndroid || "Bervariasi";
+                document.getElementById('detail-arch').textContent = appData.architecture || "Universal";
+                document.getElementById('detail-package').textContent = appData.packageName || "Unknown";
+                
+                // Package Link direct ke Google Play Store
+                const pkgLink = document.getElementById('detail-package-link');
+                pkgLink.href = `https://play.google.com/store/apps/details?id=${appData.packageName}`;
+
+                // Menangani Mod Info List (Expand/Collapse)
+                const modContainer = document.getElementById('detail-modinfo-container');
+                if (Array.isArray(appData.modInfo)) {
+                    let html = '<ul class="list-disc pl-5 space-y-1">';
+                    appData.modInfo.forEach((modText, idx) => {
+                        const hiddenClass = idx >= 3 ? 'hidden mod-item-extra' : '';
+                        html += `<li class="${hiddenClass}">${modText}</li>`;
+                    });
+                    html += '</ul>';
+                    
+                    if (appData.modInfo.length > 3) {
+                        html += `<button id="mod-toggle-btn" onclick="app.toggleModList()" class="text-brand-400 hover:text-brand-300 text-xs mt-3 font-medium flex items-center gap-1 transition-colors bg-dark-bg/50 px-3 py-1.5 rounded-lg border border-brand-500/20">Tampilkan Semua Fitur Mod <i class="ph ph-caret-down"></i></button>`;
+                    }
+                    modContainer.innerHTML = html;
+                } else {
+                    modContainer.innerHTML = `<p>${appData.modInfo}</p>`;
+                }
+
+                descEl.innerHTML = `<p>${appData.description}</p>`;
+
+                // Screenshots
+                const ssContainer = document.getElementById('detail-screenshots');
+                ssContainer.innerHTML = '';
+                if(appData.screenshots && appData.screenshots.length > 0) {
+                    appData.screenshots.forEach(src => {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.className = "h-56 sm:h-72 lg:h-80 w-auto rounded-xl object-contain bg-dark-bg border border-dark-border snap-center shrink-0 shadow-lg";
+                        ssContainer.appendChild(img);
+                    });
+                    ssContainer.parentElement.classList.remove('hidden');
+                } else {
+                    ssContainer.parentElement.classList.add('hidden');
+                }
+
+                this.renderRelatedApps(appData);
+            },
+
+            toggleDescription() {
+                this.state.isDescExpanded = !this.state.isDescExpanded;
+                const desc = document.getElementById('detail-description');
+                const btn = document.getElementById('detail-desc-btn');
+                
+                if (this.state.isDescExpanded) {
+                    desc.classList.remove('line-clamp-3');
+                    btn.innerHTML = 'Tutup Selengkapnya <i class="ph ph-caret-up"></i>';
+                } else {
+                    desc.classList.add('line-clamp-3');
+                    btn.innerHTML = 'Baca Selengkapnya <i class="ph ph-caret-down"></i>';
+                }
+            },
+
+            toggleModList() {
+                this.state.isModExpanded = !this.state.isModExpanded;
+                const extraItems = document.querySelectorAll('.mod-item-extra');
+                const btn = document.getElementById('mod-toggle-btn');
+
+                extraItems.forEach(el => {
+                    if (this.state.isModExpanded) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                });
+
+                if (this.state.isModExpanded) {
+                    btn.innerHTML = 'Tampilkan Lebih Sedikit Fitur Mod <i class="ph ph-caret-up"></i>';
+                } else {
+                    btn.innerHTML = 'Tampilkan Semua Fitur Mod <i class="ph ph-caret-down"></i>';
+                }
+            },
+
+            renderRelatedApps(currentApp) {
+                const relatedGrid = document.getElementById('detail-related');
+                relatedGrid.innerHTML = '';
+
+                // Cari berdasarkan Genre Aplikasi
+                const related = appsDatabase.filter(a => a.genre === currentApp.genre && a.id !== currentApp.id).slice(0, 4);
+
+                if (related.length === 0) {
+                    relatedGrid.innerHTML = `<p class="text-slate-500 col-span-full bg-dark-card border border-dark-border p-4 rounded-xl text-center">Belum ada aplikasi serupa dalam kategori ini.</p>`;
+                    return;
+                }
+
+                related.forEach(app => {
+                    relatedGrid.innerHTML += this.createAppCardHTML(app);
+                });
+            },
+
+            // --- Developer Page Render ---
+            renderDeveloper(devName) {
+                document.getElementById('view-developer').classList.remove('hidden');
+                document.getElementById('dev-name-title').textContent = devName;
+                
+                const devApps = appsDatabase.filter(a => a.developer === devName);
+                const grid = document.getElementById('dev-grid');
+                grid.innerHTML = '';
+
+                devApps.forEach(app => {
+                    grid.innerHTML += this.createAppCardHTML(app);
+                });
+            },
+
+            // --- Search Functionality ---
+            setupSearch() {
+                const input = document.getElementById('search-input');
+                const resultsContainer = document.getElementById('search-results');
+
+                input.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    
+                    if (query.length < 2) {
+                        resultsContainer.classList.add('hidden');
+                        return;
+                    }
+
+                    const results = appsDatabase.filter(app => 
+                        app.title.toLowerCase().includes(query) || 
+                        app.developer.toLowerCase().includes(query) ||
+                        app.packageName.toLowerCase().includes(query)
+                    ).slice(0, 5); 
+
+                    resultsContainer.innerHTML = '';
+                    
+                    if (results.length === 0) {
+                        resultsContainer.innerHTML = `<div class="p-4 text-slate-500 text-sm text-center">Tidak ditemukan aplikasi untuk "${query}"</div>`;
+                    } else {
+                        results.forEach(app => {
+                            const a = document.createElement('a');
+                            a.href = `#/app/${app.id}`;
+                            a.className = 'block p-3 border-b border-dark-border hover:bg-dark-border cursor-pointer flex items-center gap-3 transition-colors';
+                            a.innerHTML = `
+                                <img src="${app.icon}" class="w-10 h-10 rounded-lg object-cover border border-dark-border">
+                                <div>
+                                    <p class="text-white font-medium text-sm line-clamp-1">${app.title}</p>
+                                    <p class="text-slate-500 text-xs flex items-center gap-1"><i class="ph-fill ph-person text-brand-500"></i> ${app.developer}</p>
+                                </div>
+                            `;
+                            resultsContainer.appendChild(a);
+                        });
+                    }
+                    
+                    resultsContainer.classList.remove('hidden');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!input.contains(e.target) && !resultsContainer.contains(e.target)) {
+                        resultsContainer.classList.add('hidden');
+                    }
+                });
+            },
+
+            // --- Modal Functions ---
+            showDownloadModal() {
+                const appData = this.state.selectedAppForModal;
+                if (!appData) return;
+
+                document.getElementById('modal-app-icon').src = appData.icon;
+                document.getElementById('modal-app-title').textContent = appData.title;
+                document.getElementById('modal-app-size').textContent = `v${appData.version} • ${appData.size}`;
+
+                const linksContainer = document.getElementById('download-links-container');
+                linksContainer.innerHTML = '';
+
+                appData.downloadLinks.forEach(link => {
+                    const a = document.createElement('a');
+                    a.href = link.url;
+                    a.className = 'flex items-center justify-between w-full bg-dark-bg hover:bg-brand-600 text-white border border-dark-border hover:border-brand-500 p-4 rounded-xl transition-all font-medium group';
+                    a.innerHTML = `
+                        <span class="flex items-center gap-2"><i class="ph ph-link-simple text-slate-400 group-hover:text-white"></i> ${link.name}</span>
+                        <i class="ph-bold ph-download-simple text-brand-500 group-hover:text-white"></i>
+                    `;
+                    linksContainer.appendChild(a);
+                });
+
+                const modal = document.getElementById('download-modal');
+                const card = document.getElementById('modal-card');
+                
+                modal.classList.remove('hidden');
+                void modal.offsetWidth;
+                modal.classList.add('opacity-100');
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            },
+
+            closeDownloadModal() {
+                const modal = document.getElementById('download-modal');
+                const card = document.getElementById('modal-card');
+                
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0');
+                card.classList.remove('scale-100');
+                card.classList.add('scale-95');
+                
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        };
+
+        // Initialize application when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
