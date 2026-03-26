@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GabutXModApp - Download Aplikasi MOD Gratis</title>
-    <meta name="description" content="Download aplikasi premium Mod APK terbaru, gratis, dan aman. Update setiap hari dengan fitur pro terbuka.">
+    <title>GabutXModApp - Download Mod APK Gratis</title>
+    <meta name="description" content="Download Mod APK terbaru, gratis, dan aman.">
     <meta name="keywords" content="mod apk, download aplikasi mod, aplikasi premium gratis, gabutxmodapp, apk pro">
     
     <!-- Tailwind CSS -->
@@ -73,7 +73,7 @@
                     <!-- Logo -->
                     <a href="#/home" class="flex-shrink-0 flex items-center gap-2">
                         <i class="ph-fill ph-android-logo text-3xl text-brand-500"></i>
-                        <span class="font-bold text-xl text-white tracking-tight hidden sm:block">GabutXMod<span class="text-brand-500">App</span></span>
+                        <span class="font-bold text-xl text-white tracking-tight hidden sm:block">GabutX<span class="text-brand-500">ModApp</span></span>
                     </a>
                 </div>
                 
@@ -81,7 +81,7 @@
                 <div class="flex-1 max-w-xl relative">
                     <div class="relative">
                         <i class="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                        <input type="text" id="search-input" placeholder="Cari aplikasi atau developer" 
+                        <input type="text" id="search-input" placeholder="Cari aplikasi/developer..." 
                             class="w-full bg-dark-card border border-dark-border rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-white placeholder-slate-500">
                     </div>
                     <!-- Search Results Dropdown -->
@@ -98,9 +98,6 @@
                 </div>
             </div>
         </div>
-        <div style='padding:0px; margin:0px; background-color:black; border:1px solid blue; border-radius:5px;'>
-<div style='overflow: hidden; white-space: nowrap;'><div style='color: white; display: inline-block; animation: jalan 10s linear infinite;'>Masih sedikit karena baru saya buat, sabar aja kalau saya tidak malas, ntar makin lama makin banyak mod yang tersedia ^_^</div></div><style>@keyframes jalan {0% { transform: translateX(100%); }100% { transform: translateX(-100%); }}</style>
-</div>
     </nav>
 
     <!-- Mobile Drawer (Sidebar) -->
@@ -109,7 +106,7 @@
         <div class="p-6 border-b border-dark-border flex items-center justify-between">
             <a href="#/home" class="flex items-center gap-2" onclick="app.toggleDrawer();">
                 <i class="ph-fill ph-android-logo text-3xl text-brand-500"></i>
-                <span class="font-bold text-xl text-white tracking-tight">GabutXMod<span class="text-brand-500">App</span></span>
+                <span class="font-bold text-xl text-white tracking-tight">GabutX<span class="text-brand-500">ModApp</span></span>
             </a>
             <button onclick="app.toggleDrawer()" class="text-slate-400 hover:text-white">
                 <i class="ph ph-x text-2xl"></i>
@@ -121,13 +118,13 @@
             <a href="#/home" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
                 <i class="ph ph-house text-xl text-slate-400"></i> Beranda
             </a>
-            <!-- Menggunakan Hash Link untuk navigasi Genre -->
-            <a href="#/genre/Televisi" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
-                <i class="ph ph-television text-xl text-slate-400"></i> Live Televisi
-            </a>
-            <a href="#/genre/Streaming" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
+            <a href="#/genre/Movie%2FSeries" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
                 <i class="ph ph-video text-xl text-slate-400"></i> Stream Movie/Series
             </a>
+            <button onclick="app.toggleDrawer(); app.showGenreModal();" class="w-full flex items-center justify-between px-4 py-3 text-slate-300 hover:bg-dark-border hover:text-white rounded-xl transition-colors text-left">
+                <span class="flex items-center gap-3"><i class="ph ph-funnel text-xl text-slate-400"></i> Semua Kategori</span>
+                <i class="ph ph-caret-right text-slate-500"></i>
+            </button>
 
             <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-2">Layanan Pengguna</p>
             <a href="https://bio.link/bangyadi" target="_blank" onclick="app.toggleDrawer();" class="w-full flex items-center gap-3 px-4 py-3 text-emerald-400 hover:bg-emerald-900/30 rounded-xl transition-colors text-left font-medium border border-emerald-500/20">
@@ -158,9 +155,17 @@
                 <p class="text-slate-400 max-w-2xl">Disini kamu bisa download mod yang mungkin tidak tersedia di blogger. Semua dijamin aman, link downloadnya juga mudah<br><span class="text-brand-500"><b>anti shortlink, anti password, anti key login ^_^</b></span></p>
             </div>
 
-            <!-- Categories / Filter -->
-            <div class="flex gap-3 overflow-x-auto pb-4 mb-6 scrollbar-hide" id="genre-filters">
-                <!-- Filters injected here -->
+            <!-- Header Filter (Menggantikan Scroll Kanan-Kiri) -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6 bg-dark-card border border-dark-border p-4 rounded-2xl">
+                <div class="flex items-center gap-3">
+                    <button onclick="app.showGenreModal()" class="bg-dark-bg hover:bg-brand-600 border border-dark-border hover:border-brand-500 text-white px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 transition-all shadow-sm">
+                        <i class="ph ph-funnel text-lg text-brand-500 group-hover:text-white"></i> Kategori
+                    </button>
+                    <span class="text-slate-400 text-sm">Filter Aktif: <strong id="current-genre-label" class="text-brand-400 bg-brand-900/20 px-2 py-1 rounded-md border border-brand-500/20">Semua</strong></span>
+                </div>
+                <div class="text-sm text-slate-500 flex items-center gap-1.5">
+                    <i class="ph ph-sort-descending text-brand-500"></i> Diurutkan Terbaru
+                </div>
             </div>
 
             <!-- App Grid -->
@@ -194,7 +199,12 @@
                         <h1 id="detail-title" class="text-2xl md:text-4xl font-bold text-white mb-2"></h1>
                         <a id="detail-developer" href="#" class="text-brand-500 text-lg mb-4 hover:underline inline-block font-medium"></a>
                         
-                        <!-- Advanced Meta Info (Updated At replaced Rating) -->
+                        <!-- Genres Badges -->
+                        <div id="detail-genres-container" class="flex flex-wrap gap-2 mb-6">
+                            <!-- Genres di-inject ke sini -->
+                        </div>
+                        
+                        <!-- Advanced Meta Info -->
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6 text-sm">
                             <div class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border">
                                 <i class="ph-fill ph-calendar-blank text-brand-500 text-lg"></i>
@@ -216,13 +226,18 @@
                                 <i class="ph ph-file-archive text-slate-400 text-lg"></i>
                                 <div><p class="text-xs text-slate-500">Ukuran</p><p id="detail-size" class="font-bold text-white leading-none"></p></div>
                             </div>
+                            
+                            <!-- Dynamic Package/Official Site Link -->
                             <a id="detail-package-link" href="#" target="_blank" class="flex items-center gap-2 bg-dark-bg px-3 py-2 rounded-lg border border-dark-border hover:border-brand-500 hover:bg-brand-900/10 transition-colors group cursor-pointer">
-                                <i class="ph ph-google-play-logo text-slate-400 group-hover:text-brand-500 text-lg transition-colors"></i>
-                                <div class="truncate"><p class="text-xs text-slate-500">Package Name</p><p id="detail-package" class="font-bold text-white leading-none truncate group-hover:text-brand-400"></p></div>
+                                <i id="detail-package-icon" class="ph ph-google-play-logo text-slate-400 group-hover:text-brand-500 text-lg transition-colors"></i>
+                                <div class="truncate">
+                                    <p id="detail-package-label" class="text-xs text-slate-500">Package Name</p>
+                                    <p id="detail-package" class="font-bold text-white leading-none truncate group-hover:text-brand-400"></p>
+                                </div>
                             </a>
                         </div>
 
-                        <!-- Mod Info Alert (List Expand/Collapse) -->
+                        <!-- Mod Info Alert -->
                         <div class="bg-brand-900/20 border border-brand-500/30 rounded-xl p-5 mb-6 flex gap-3 items-start backdrop-blur-sm">
                             <i class="ph-fill ph-magic-wand text-brand-500 text-xl mt-0.5"></i>
                             <div class="flex-1 w-full">
@@ -236,7 +251,7 @@
                         <!-- Download Button -->
                         <button onclick="app.showDownloadModal()" class="w-full md:w-auto bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-brand-500/20 transition-all flex items-center justify-center gap-2 text-lg active:scale-95">
                             <i class="ph-bold ph-download-simple"></i>
-                            Download APK
+                            Download Mod APK
                         </button>
                     </div>
                 </div>
@@ -244,7 +259,7 @@
                 <!-- Screenshots Gallery -->
                 <div class="mt-10 pt-8 border-t border-dark-border">
                     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="ph ph-image text-brand-500"></i> Screenshot App
+                        <i class="ph ph-image text-brand-500"></i> Tangkapan Layar
                     </h2>
                     <div id="detail-screenshots" class="flex gap-4 overflow-x-auto pb-4 snap-x-mandatory scrollbar-hide">
                         <!-- Screenshots injected here -->
@@ -301,29 +316,38 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark-card border-t border-dark-border py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div class="flex items-center justify-center gap-2">
-                <i class="ph-fill ph-android-logo text-2xl text-slate-400"></i>
-                <span class="font-bold text-lg text-slate-300">GabutXModApp</span>
+    <!-- Modal Genre (Kategori) -->
+    <div id="genre-modal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="app.closeGenreModal()"></div>
+        <div class="absolute bottom-0 md:inset-0 flex items-end md:items-center justify-center p-0 md:p-4">
+            <div class="bg-dark-card border border-dark-border rounded-t-3xl md:rounded-2xl w-full max-w-xl shadow-2xl transform translate-y-full md:scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" id="genre-modal-card">
+                <div class="p-6 border-b border-dark-border flex justify-between items-center bg-dark-card sticky top-0 rounded-t-3xl md:rounded-t-2xl z-10">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="ph-fill ph-funnel text-brand-500"></i> Pilih Kategori
+                    </h3>
+                    <button onclick="app.closeGenreModal()" class="text-slate-400 hover:text-white bg-dark-bg rounded-full p-2 border border-dark-border hover:border-slate-500 transition-colors">
+                        <i class="ph ph-x text-lg"></i>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="genre-modal-list">
+                        <!-- List Genre diinject kesini -->
+                    </div>
+                </div>
             </div>
-            <p class="text-slate-500 text-sm">
-                &copy; <span id="copyright-year"></span> GabutXModApp Store. <br class="hidden md:block">Download mod secara gratis, anti shortlink, anti password.
-            </p>
         </div>
-    </footer>
+    </div>
 
-    <!-- Download Modal -->
+    <!-- Modal Download -->
     <div id="download-modal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="app.closeDownloadModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-md shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modal-card">
-                <div class="p-6 border-b border-dark-border flex justify-between items-center">
+                <div class="p-6 border-b border-dark-border flex justify-between items-center bg-dark-card sticky top-0 rounded-t-2xl z-10">
                     <h3 class="text-xl font-bold text-white flex items-center gap-2">
                         <i class="ph-fill ph-cloud-arrow-down text-brand-500"></i> Server Download
                     </h3>
-                    <button onclick="app.closeDownloadModal()" class="text-slate-400 hover:text-white bg-dark-bg rounded-full p-1">
+                    <button onclick="app.closeDownloadModal()" class="text-slate-400 hover:text-white bg-dark-bg rounded-full p-1 border border-dark-border">
                         <i class="ph ph-x text-xl"></i>
                     </button>
                 </div>
@@ -333,6 +357,19 @@
                         <div>
                             <p id="modal-app-title" class="text-white font-bold line-clamp-1"></p>
                             <p id="modal-app-size" class="text-slate-400 text-sm mt-0.5"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Area Notice Mod -->
+                    <div id="modal-notice-container" class="hidden mb-6">
+                        <div class="bg-yellow-900/10 border border-yellow-500/30 rounded-xl overflow-hidden">
+                            <button onclick="app.toggleNoticeModal()" class="w-full flex justify-between items-center p-3 text-yellow-500 hover:bg-yellow-500/10 transition-colors">
+                                <span class="font-bold text-sm flex items-center gap-1.5"><i class="ph-fill ph-warning-circle text-lg"></i> Informasi Penting Mod</span>
+                                <i id="notice-chevron" class="ph ph-caret-down transition-transform duration-300"></i>
+                            </button>
+                            <div id="modal-notice-content" class="hidden px-3 pb-3 pt-1 text-sm text-yellow-100/80">
+                                <!-- Notice di-inject ke sini -->
+                            </div>
                         </div>
                     </div>
                     
@@ -348,24 +385,68 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-dark-border py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div class="flex items-center justify-center gap-2">
+                <i class="ph-fill ph-android-logo text-2xl text-slate-400"></i>
+                <span class="font-bold text-lg text-slate-300">GabutXModApp</span>
+            </div>
+            <p class="text-slate-500 text-sm">
+                &copy; <span id="copyright-year"></span> GabutXModApp Store. <br class="hidden md:block">Download mod secara gratis, anti shortlink, anti password.
+            </p>
+        </div>
+    </footer>
+
     <!-- Application Logic -->
     <script>
         /**
-         * DATABASE APLIKASI (ModInfo menjadi Array, Rating diganti UpdatedAt)
+         * DATABASE APLIKASI (Dengan Multi-Genre, Official Site, & Notice Mod)
          */
         const appsDatabase = [
+            {
+                id: "app-melolo",
+                title: "Melolo",
+                developer: "POLIGON",
+                whatsNew: "<b>• Daftar perubahan tidak disediakan</b>",
+                packageName: "com.worldance.drama",
+                officialSite: null,
+                minAndroid: "Android 7.0+",
+                architecture: "armv7 & arm64",
+                genres: ["Short Drama", "Streaming"],
+                version: "5.2.2-52218",
+                size: "81,88 MB",
+                updatedAt: "26 Maret 2026",
+                modInfo: [
+                    "Vip Premium & Tanpa Iklan",
+                    "Unlock All Episode",
+                    "Bypass Larangan Screenshot/Record",
+                    "Bypass Dialog Tidak Resmi",
+                    "Menghapus Watermark/Logo Melolo Dibagian Nonton",
+                    "Fix Login FB/TikTok"
+                ],
+                noticeMod: [
+                    "Jika mengalami kesalahan jaringan, silakan restart aplikasi atau coba login ulang.",
+                    "Tidak disarankan login Google, karena terkadang bisa terdeteksi aktivitas mencurigakan..."
+                ],
+                description: "Nikmati Beragam Drama Pendek di Melolo secara Gratis, dengan Tema Romansa, Miliarder, Balas Dendam, dan Fantasi untuk Menghiburmu. Melolo punya banyak drama pendek terbaru! Apa pun seleramu, semuanya ada di sini. Ayo gabung dengan Melolo dan nikmati keseruannya!",
+                icon: "https://play-lh.googleusercontent.com/zLxJyyx3aGLSR63NvdVv6ERGaLwIujdCRwsEi_-G-6FhCzdrIGMKXUExLQWo29OcZ4A2=w480-h960-rw",
+                screenshots: ["https://gcdnb.pbrd.co/images/xGX5fpSIEOeJ.jpg", "https://gcdnb.pbrd.co/images/7f7o8wDl2Kgr.jpg", "https://gcdnb.pbrd.co/images/kJJFXzxA4XIC.jpg", "https://gcdnb.pbrd.co/images/32tRD8PN9MYN.jpg"],
+                downloadLinks: [{ name: "Link MediaFire", url: "https://www.mediafire.com/file/7rm5c6j2wf0tjzn/Melolo_v5.2.2-52218_%255BVIP%255D.apk/file" }, { name: "Link Workupload", url: "https://workupload.com/file/aNvbsBLBF5C" }]
+            },
             {
                 id: "app-netflix",
                 title: "Netflix (Clone Mod)",
                 developer: "Netflix, Inc.",
                 whatsNew: "<b>• Improvement UI<br>• Removed Some Deprecated Provider</b>",
-                packageName: "com.netflix.mediaclient",
+                packageName: null,
+                officialSite: "https://linktr.ee/flixvision",
                 minAndroid: "Android 6.0+",
-                architecture: "universal (all arm)",
-                genre: "Streaming",
+                architecture: "Universal (all arm)",
+                genres: ["Streaming", "Movie/Series"],
                 version: "9.58.0 build 3 64102",
                 size: "52,30 MB",
-                updatedAt: "19 Mar 2026",
+                updatedAt: "19 Maret 2026",
                 modInfo: [
                     "Premium Clone (Mengambil database film pihak ketiga)",
                     "Tanpa Iklan Yang Mengganggu",
@@ -375,55 +456,38 @@
                     "Subtitle Yang Bisa Kamu Pilih",
                     "Mendukung Android TV"
                 ],
+                noticeMod: [
+                    "Ini hanyalah aplikasi pihak ketiga yang saya clone dan mod agar seperti Netflix, kamu bisa klik bagian Official Site untuk mengecek aplikasi original nya.",
+                    "Tidak semua video bisa memiliki Subtitle Indonesia, jadi ya tergantung keberuntungan kamu."
+                ],
                 description: "Mencari acara TV dan film yang paling banyak dibicarakan dari seluruh dunia? Semuanya ada di Netflix. Versi Clone Mod ini adalah aplikasi clone streaming yang mengambil library dari database film raksasa dengan antarmuka yang sangat mirip dengan Netflix asli. Anda tidak perlu membuat akun untuk mulai menonton.",
                 icon: "https://play-lh.googleusercontent.com/TBRwjS_qfJCSj1m7zZB93FnpJM5fSpMA_wUlFDLxWAb45T9RmwBvQd5cWR5viJJOhkI=w480-h960-rw",
                 screenshots: ["https://www.dropbox.com/scl/fi/daz46spcg3fvwh496ezsd/Screenshot_2026-03-08-13-10-00-311_com.netflix.mediaclient.mod.jpg?rlkey=3n3khd9skyjbuyckxqmstgtxi&st=il48epre&dl=1", "https://www.dropbox.com/scl/fi/g29ukpw7cypdw4xts3t9k/Screenshot_2026-03-08-13-13-08-518_com.netflix.mediaclient.mod.jpg?rlkey=gg58ouanp2q1zrwiugm3xlah4&st=6elaxidc&dl=1", "https://www.dropbox.com/scl/fi/5hur8qep31fig5lkt6g0d/Screenshot_2026-03-08-13-15-09-334_com.netflix.mediaclient.mod.jpg?rlkey=794wsr723ove09grr99w2o7jh&st=6pc5cw0n&dl=1", "https://www.dropbox.com/scl/fi/qnqdgr0kvwflvcwyl6eu1/Screenshot_2026-03-08-13-18-46-777_com.netflix.mediaclient.mod.jpg?rlkey=d82s43zv7uob3b82lvhz1739x&st=r8k23ziy&dl=1"],
                 downloadLinks: [{ name: "Link MediaFire", url: "https://www.mediafire.com/file/jenr7btqrmrd0dz/N3tflix_M0D_v9.58.0_build_3_64102.apk/file" }, { name: "Link SFile.co", url: "https://sfile.co/cGE8cjgvb6G" }]
             },
             {
-                id: "app-melolo",
-                title: "Melolo",
-                developer: "POLIGON",
-                whatsNew: "<b>• Daftar perubahan tidak disediakan</b>",
-                packageName: "com.worldance.drama",
-                minAndroid: "Android 7.0+",
-                architecture: "armv7 & arm64",
-                genre: "Short Drama",
-                version: "5.2.0-52019",
-                size: "80,36 MB",
-                updatedAt: "14 Mar 2026",
-                modInfo: [
-                    "VIP Premium",
-                    "Tanpa Iklan",
-                    "Bypass Larangan Screenshot/Record",
-                    "Bypass Dialog Tidak Resmi",
-                    "Menghapus Watermark/Logo Melolo Dibagian Nonton",
-                    "Fix Login Facebook/Tiktok"
-                ],
-                description: "Nikmati Beragam Drama Pendek di Melolo secara Gratis, dengan Tema Romansa, Miliarder, Balas Dendam, dan Fantasi untuk Menghiburmu. Melolo punya banyak drama pendek terbaru! Apa pun seleramu, semuanya ada di sini. Ayo gabung dengan Melolo dan nikmati keseruannya!",
-                icon: "https://play-lh.googleusercontent.com/zLxJyyx3aGLSR63NvdVv6ERGaLwIujdCRwsEi_-G-6FhCzdrIGMKXUExLQWo29OcZ4A2=w480-h960-rw",
-                screenshots: ["https://gcdnb.pbrd.co/images/xGX5fpSIEOeJ.jpg", "https://gcdnb.pbrd.co/images/7f7o8wDl2Kgr.jpg", "https://gcdnb.pbrd.co/images/kJJFXzxA4XIC.jpg", "https://gcdnb.pbrd.co/images/32tRD8PN9MYN.jpg"],
-                downloadLinks: [{ name: "Link MediaFire", url: "https://www.mediafire.com/file/skqb8k2auajkxgv/Melolo_v5.2.0-52019_%255BVIP%255D.apk/file" }, { name: "Link GDrive", url: "https://drive.google.com/file/d/1esqvS1b8SPf606Htgu_C9zA8SmcnAtJa/view?usp=drivesdk" }]
-            },
-            {
                 id: "app-bittv",
                 title: "BitTV",
                 developer: "Duktek Digital",
                 whatsNew: "<b>• Fix bug<br>• Improvement UI</b>",
-                packageName: "com.live_streaming_tv.online_tv",
+                packageName: null,
+                officialSite: "https://t.me/BitTVCustomerCare",
                 minAndroid: "Android 7.0+",
                 architecture: "armv7 & arm64",
-                genre: "Televisi",
+                genres: ["Televisi", "Entertainment"],
                 version: "2.1.5-specter",
                 size: "8,94 MB",
-                updatedAt: "06 Mar 2026",
+                updatedAt: "06 Maret 2026",
                 modInfo: [
                     "Tanpa Iklan",
                     "Bypass Dialog Iklan",
                     "Menghapus Bagian Layout Donasi",
-                    "Support Android TV",
+                    "Dukungan Android TV",
                     "Fix Crash App (bypass signature)"
                 ],
+                noticeMod: [
+                	"Di Android TV kamu bisa klik tombol angka 5 di remote untuk Fullscreen, jika tidak ada tombol angka 5, kamu bisa klik Back/Kembali, disitu akan ada banyak pilihan termasuk Fullscreen atau Layar Penuh."
+				],
                 description: "BitTV adalah aplikasi yang bisa kamu gunakan untuk streaming tv online dan streaming sport seperti sepak bola dan lain-lain secara gratis. Versi Mod ini memungkinkan kamu untuk menggunakan aplikasi sepenuhnya tanpa ganggu Iklan.",
                 icon: "https://gcdnb.pbrd.co/images/RF1pw1QjjoVk.png",
                 screenshots: ["https://www.dropbox.com/scl/fi/0np4aa2y7veb8xbo0edue/Screenshot_2026-03-06-13-21-28-338_com.live_streaming_tv.online_tv.jpg?rlkey=gsmtgf13cfipvwa1he75z9cyx&st=x2c51vgp&dl=1", "https://www.dropbox.com/scl/fi/no04d5eee5rik2hxhqun6/Screenshot_2026-03-06-13-21-34-052_com.live_streaming_tv.online_tv.jpg?rlkey=3wr45dsl9ta6t0osskl4zpfo6&st=7enozig1&dl=1", "https://www.dropbox.com/scl/fi/ioefmtny57964ahx85u0v/Screenshot_2026-03-06-13-21-41-708_com.live_streaming_tv.online_tv.jpg?rlkey=0ibaksu8d05hls0z2wj9hzww3&st=gjcfzxzl&dl=1", "https://www.dropbox.com/scl/fi/ecner7dbtcvmqjyvruclo/Screenshot_2026-03-06-13-22-05-243_com.live_streaming_tv.online_tv.jpg?rlkey=1kxvy3vfn958fjz6lmewp5zps&st=3p8drrrw&dl=1"],
@@ -434,12 +498,13 @@
                 title: "HiTV",
                 developer: "Super drama world",
                 packageName: "com.rheia.patrino",
+                officialSite: null,
                 minAndroid: "Android 6.0+",
                 architecture: "armv7 & arm64",
-                genre: "Streaming",
+                genres: ["Streaming", "Movies/Series"],
                 version: "3.13.3",
                 size: "57 MB",
-                updatedAt: "08 Mar 2026",
+                updatedAt: "08 Maret 2026",
                 modInfo: [
                     "Vip Lifetime & Tanpa Iklan",
                     "Unlock Shorts",
@@ -447,15 +512,41 @@
                     "Unlock Download VIP",
                     "Support Mirroring ke TV"
                 ],
+                noticeMod: [
+                    "Shorts sudah terbuka dan bisa kamu tonton secara gratis. Namun jika masih muncul dialog tonton iklan, silakan gunakan VPN untuk unlock shorts sepenuhnya..."
+                ],
                 description: "Selami dunia hiburan Asia dengan HiTV, aplikasi pilihan Anda untuk drama dan film berkualitas tinggi. Jelajahi drama Korea yang menawan, serial Tiongkok yang menarik, dan hiburan Thailand yang semarak. Perpustakaan kami terus diperbarui dengan konten segar. Nikmati beragam koleksi acara TV dan film yang memenuhi semua selera. Temukan romansa, aksi, epos sejarah, dan komedi dari Korea, Tiongkok, Thailand, dan banyak lagi.",
                 icon: "https://play-lh.googleusercontent.com/eaeHD0U17lV513XMJajR47ARMnn0OEI00sEtbPyw6zIClSm8vkNHXdrCvdRO17z_OA=w480-h960-rw",
                 screenshots: ["https://www.dropbox.com/scl/fi/ngdj1lribncsqcuhu1ui5/Screenshot_2026-03-07-14-18-19-180_com.rheia.patrino.jpg?rlkey=ckt0o19u1du1esaesd26dob0p&st=dvheb4qg&dl=1", "https://www.dropbox.com/scl/fi/5cnsjby0vg8x8wcidq3p8/Screenshot_2026-03-07-14-17-48-015_com.rheia.patrino.jpg?rlkey=j9irgcu4vm2vquuiqqnfsby2d&st=t9swgn6p&dl=1", "https://www.dropbox.com/scl/fi/pbgt3u2z1f8zpqrv6ormh/Screenshot_2026-03-07-14-20-45-116_com.rheia.patrino.jpg?rlkey=7u4kdw2d0mxtlaay28100vimt&st=z3296qry&dl=1", "https://www.dropbox.com/scl/fi/zgjxpk1ydld5lwi9oetle/Screenshot_2026-03-07-14-21-15-581_com.rheia.patrino.jpg?rlkey=0d59c0dxc35jvpdimzrn5dj7s&st=ba8wzxcu&dl=1", "https://www.dropbox.com/scl/fi/w9m9f95izv5eje5x8zy7f/Screenshot_2026-03-07-14-21-42-705_com.rheia.patrino.jpg?rlkey=5idwfd6udm2oo9lhgdi2sqsu9&st=3iucnw7a&dl=1"],
                 downloadLinks: [{ name: "Link MediaFire (armv7)", url: "https://www.mediafire.com/file/arwwtiy33ty4v20/HiTV_com.rheia.patrino_v3.13.3-armv7_%255BVIP%255D.apk/file" }, { name: "Link MediaFire (arm64)", url: "https://www.mediafire.com/file/r3z6qo9zxztn9g0/HiTV_com.rheia.patrino_v3.13.3-arm64_%255BVIP%255D.apk/file" }]
+            },
+            {
+                id: "app-snaptube",
+                title: "Snaptube",
+                developer: "Aquila Space (Hong Kong) Company Limited",
+                packageName: null,
+                officialSite: "https://www.snaptube.com/",
+                minAndroid: "Android 7.0+",
+                architecture: "armv7 & arm64",
+                genres: ["Downloader", "YouTube"],
+                version: "7.56.0.75650110",
+                size: "25,87 MB",
+                updatedAt: "26 Maret 2026",
+                modInfo: [
+                    "Premium Licensed",
+                    "Tanpa Iklan",
+                    "Bypass Unofficial Apps"
+                ],
+                noticeMod: null,
+                description: "<b>Snaptube YouTube Downloader &amp; MP3 Converter</b> adalah alat sederhana yang memungkinkan Anda mengunduh video apa pun dari YouTube dan banyak layanan serupa lainnya dengan cepat, mudah, dan nyaman, sehingga Anda dapat memutarnya nanti tanpa koneksi internet. Sebelum mengunduh media apa pun, Anda juga dapat memilih kualitas dan format yang Anda inginkan.",
+                icon: "https://img.utdstc.com/icon/b11/7ce/b117ce7ff728bd1bf2883fdffdcb170f487a793a8f65db956649a846861e138c:200",
+                screenshots: ["https://gcdnb.pbrd.co/images/wo8uqVN1mzQV.jpg", "https://gcdnb.pbrd.co/images/itGsdciehsla.jpg", "https://gcdnb.pbrd.co/images/XmJ3xoIHUQuU.jpg", "https://gcdnb.pbrd.co/images/pdRXUVyMmqER.jpg"],
+                downloadLinks: [{ name: "Link MediaFire", url: "https://www.mediafire.com/file/34cks237v42agy5/Snaptube_v7.56.0.75650110_%255BPR3MIUM_NO_ADS%255D.apk/file" }, { name: "Link Workupload", url: "https://workupload.com/file/NmdTSsZmbz9" }]
             }
         ];
 
         /**
-         * ENGINE APLIKASI UTAMA (Routing & State)
+         * ENGINE APLIKASI UTAMA (Routing, Sorting, Modal State)
          */
         const app = {
             state: {
@@ -465,7 +556,8 @@
                 selectedAppForModal: null,
                 isDrawerOpen: false,
                 isDescExpanded: false,
-                isModExpanded: false
+                isModExpanded: false,
+                isNoticeExpanded: false
             },
 
             init() {
@@ -482,6 +574,17 @@
                 this.handleRouting();
             },
 
+            // --- Sorting Method (Updated At - Newest First) ---
+            getSortedApps() {
+                // Copy array dan urutkan menggunakan parsing Date
+                return [...appsDatabase].sort((a, b) => {
+                    const dateA = new Date(a.updatedAt).getTime();
+                    const dateB = new Date(b.updatedAt).getTime();
+                    // Descending: b - a
+                    return dateB - dateA;
+                });
+            },
+
             // --- Routing System (Deep Linking) ---
             handleRouting() {
                 // Sembunyikan semua view
@@ -489,8 +592,9 @@
                 document.getElementById('view-detail').classList.add('hidden');
                 document.getElementById('view-developer').classList.add('hidden');
                 
-                // Tutup drawer & search jika terbuka
+                // Tutup modal/drawer jika masih terbuka
                 if(this.state.isDrawerOpen) this.toggleDrawer();
+                this.closeGenreModal();
                 document.getElementById('search-results').classList.add('hidden');
                 document.getElementById('search-input').value = '';
                 
@@ -513,14 +617,14 @@
                     this.state.activeGenre = genre;
                     this.state.currentPage = 1; // Reset halaman
                     document.getElementById('view-home').classList.remove('hidden');
-                    this.renderGenreFilters();
+                    this.updateGenreLabel();
                     this.renderHome();
                 }
                 else {
                     // Default to Home (Semua Kategori)
                     this.state.activeGenre = 'Semua';
                     document.getElementById('view-home').classList.remove('hidden');
-                    this.renderGenreFilters();
+                    this.updateGenreLabel();
                     this.renderHome();
                 }
             },
@@ -548,25 +652,101 @@
                 }
             },
 
+            // --- Modal Genre Logic ---
+            showGenreModal() {
+                this.renderGenreListInModal();
+                const modal = document.getElementById('genre-modal');
+                const card = document.getElementById('genre-modal-card');
+                
+                modal.classList.remove('hidden');
+                void modal.offsetWidth;
+                modal.classList.add('opacity-100');
+                modal.classList.remove('opacity-0');
+                
+                // Animasi dari bawah (mobile) atau scale (desktop)
+                if (window.innerWidth < 768) {
+                    card.classList.remove('translate-y-full');
+                } else {
+                    card.classList.remove('scale-95');
+                    card.classList.add('scale-100');
+                }
+            },
+
+            closeGenreModal() {
+                const modal = document.getElementById('genre-modal');
+                const card = document.getElementById('genre-modal-card');
+                
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0');
+                
+                if (window.innerWidth < 768) {
+                    card.classList.add('translate-y-full');
+                } else {
+                    card.classList.remove('scale-100');
+                    card.classList.add('scale-95');
+                }
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            },
+
+            updateGenreLabel() {
+                document.getElementById('current-genre-label').textContent = this.state.activeGenre;
+            },
+
+            renderGenreListInModal() {
+                const container = document.getElementById('genre-modal-list');
+                
+                // Ambil semua genre unik dari array genres di database
+                const allGenres = new Set();
+                appsDatabase.forEach(app => {
+                    if(app.genres && Array.isArray(app.genres)){
+                        app.genres.forEach(g => allGenres.add(g));
+                    }
+                });
+                
+                const uniqueGenres = ['Semua', ...Array.from(allGenres).sort()];
+                
+                container.innerHTML = uniqueGenres.map(genre => {
+                    const hrefUrl = genre === 'Semua' ? '#/home' : `#/genre/${encodeURIComponent(genre)}`;
+                    const isActive = this.state.activeGenre === genre;
+                    return `
+                        <a href="${hrefUrl}" onclick="app.closeGenreModal()"
+                            class="p-4 rounded-xl border flex items-center justify-between transition-all ${
+                                isActive 
+                                ? 'bg-brand-600 border-brand-500 text-white shadow-lg shadow-brand-500/20' 
+                                : 'bg-dark-bg border-dark-border text-slate-300 hover:border-brand-500/50 hover:bg-dark-card'
+                            }">
+                            <span class="font-bold">${genre}</span>
+                            ${isActive ? '<i class="ph-bold ph-check-circle text-xl"></i>' : ''}
+                        </a>
+                    `;
+                }).join('');
+            },
+
             // --- Home Page Render ---
             renderHome() {
                 const grid = document.getElementById('home-grid');
                 grid.innerHTML = '';
 
-                let filteredApps = appsDatabase;
+                // Ambil data yg SUDAH DIURUTKAN
+                let sortedApps = this.getSortedApps();
+
+                // Filter by Genre (Array Includes)
                 if (this.state.activeGenre !== 'Semua') {
-                    filteredApps = appsDatabase.filter(app => app.genre === this.state.activeGenre);
+                    sortedApps = sortedApps.filter(app => app.genres && app.genres.includes(this.state.activeGenre));
                 }
 
-                const totalItems = filteredApps.length;
+                const totalItems = sortedApps.length;
                 const totalPages = Math.ceil(totalItems / this.state.itemsPerPage);
                 
                 const startIndex = (this.state.currentPage - 1) * this.state.itemsPerPage;
                 const endIndex = startIndex + this.state.itemsPerPage;
-                const appsToRender = filteredApps.slice(startIndex, endIndex);
+                const appsToRender = sortedApps.slice(startIndex, endIndex);
 
                 if (appsToRender.length === 0) {
-                    grid.innerHTML = `<div class="col-span-full text-center py-16 bg-dark-card border border-dark-border rounded-2xl text-slate-400">Tidak ada aplikasi dalam kategori ini.</div>`;
+                    grid.innerHTML = `<div class="col-span-full text-center py-16 bg-dark-card border border-dark-border rounded-2xl text-slate-400 flex flex-col items-center gap-3">
+                        <i class="ph ph-ghost text-5xl text-slate-500"></i>
+                        <p>Tidak ada aplikasi dalam kategori ini.</p>
+                    </div>`;
                 }
 
                 appsToRender.forEach(app => {
@@ -576,21 +756,26 @@
                 this.renderPaginationControls(totalPages);
             },
 
-            // Menggunakan tag <a> dan menampilkan UpdatedAt di Card
             createAppCardHTML(app) {
-                // Mengambil 1 atau 2 fitur pertama untuk preview di kartu
                 const modPreview = Array.isArray(app.modInfo) ? app.modInfo[0] : app.modInfo;
+                // Ambil 1 genre utama untuk ditampilkan di kartu
+                const primaryGenre = app.genres && app.genres.length > 0 ? app.genres[0] : "Lainnya";
 
                 return `
                     <a href="#/app/${app.id}" class="block bg-dark-card border border-dark-border rounded-2xl overflow-hidden hover:border-brand-500 transition-all duration-300 group cursor-pointer flex flex-col h-full hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-500/10">
-                        <div class="p-5 flex-grow">
+                        <div class="p-5 flex-grow relative">
+                            <!-- Badge Genre -->
+                            <div class="absolute top-4 right-4 bg-brand-900/50 text-brand-300 text-[10px] font-bold px-2 py-1 rounded border border-brand-500/20">
+                                ${primaryGenre}
+                            </div>
+                            
                             <div class="flex items-start gap-4">
                                 <img src="${app.icon}" alt="${app.title}" class="w-16 h-16 rounded-xl shadow-md object-cover bg-dark-bg group-hover:scale-105 transition-transform duration-300 border border-dark-border">
-                                <div class="flex-1 min-w-0">
+                                <div class="flex-1 min-w-0 pr-12">
                                     <h3 class="font-bold text-white text-lg truncate group-hover:text-brand-500 transition-colors" title="${app.title}">${app.title}</h3>
                                     <p class="text-slate-400 text-sm mb-1 truncate">${app.developer}</p>
                                     <div class="flex items-center gap-2 mt-1">
-                                        <div class="flex items-center gap-1 bg-dark-bg px-2 py-0.5 rounded text-xs border border-dark-border text-slate-300">
+                                        <div class="flex items-center gap-1 bg-dark-bg px-2 py-0.5 rounded text-xs border border-dark-border text-slate-300 shadow-inner">
                                             <i class="ph-fill ph-calendar-blank text-brand-500"></i>
                                             <span class="truncate">${app.updatedAt}</span>
                                         </div>
@@ -640,26 +825,6 @@
                 controls.appendChild(nextBtn);
             },
 
-            // Merender tombol Filter menggunakan Hash Routing
-            renderGenreFilters() {
-                const container = document.getElementById('genre-filters');
-                const genres = ['Semua', ...new Set(appsDatabase.map(a => a.genre))];
-                
-                container.innerHTML = genres.map(genre => {
-                    const hrefUrl = genre === 'Semua' ? '#/home' : `#/genre/${encodeURIComponent(genre)}`;
-                    return `
-                        <a href="${hrefUrl}" 
-                            class="whitespace-nowrap px-5 py-2 rounded-full text-sm font-bold transition-all border snap-start ${
-                                this.state.activeGenre === genre 
-                                ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-500/20' 
-                                : 'bg-dark-card text-slate-400 border-dark-border hover:bg-dark-border hover:text-white block'
-                            }">
-                            ${genre}
-                        </a>
-                    `;
-                }).join('');
-            },
-
             // --- Detail Page Render & Logic ---
             renderDetail(appId) {
                 const appData = appsDatabase.find(a => a.id === appId);
@@ -672,7 +837,7 @@
                 document.getElementById('view-detail').classList.remove('hidden');
                 this.state.selectedAppForModal = appData;
 
-                // Reset Description & Mod States
+                // Reset States
                 this.state.isDescExpanded = false;
                 this.state.isModExpanded = false;
 
@@ -689,21 +854,52 @@
                 devEl.textContent = appData.developer;
                 devEl.href = `#/developer/${encodeURIComponent(appData.developer)}`;
 
-                // Mengganti Rating dengan Updated At
+                // Render Multi Genres as Badges
+                const genresContainer = document.getElementById('detail-genres-container');
+                if (appData.genres && appData.genres.length > 0) {
+                    genresContainer.innerHTML = appData.genres.map(genre => 
+                        `<a href="#/genre/${encodeURIComponent(genre)}" class="bg-dark-bg border border-dark-border hover:border-brand-500 hover:text-white text-slate-300 text-xs px-3 py-1.5 rounded-full transition-colors cursor-pointer">
+                            ${genre}
+                        </a>`
+                    ).join('');
+                } else {
+                    genresContainer.innerHTML = '';
+                }
+
+                // Metadata Dasar
                 document.getElementById('detail-updated').textContent = appData.updatedAt;
-                
                 document.getElementById('detail-version').textContent = appData.version;
                 document.getElementById('detail-size').textContent = appData.size;
-                
                 document.getElementById('detail-android').textContent = appData.minAndroid || "Bervariasi";
                 document.getElementById('detail-arch').textContent = appData.architecture || "Universal";
-                document.getElementById('detail-package').textContent = appData.packageName || "Unknown";
                 
-                // Package Link direct ke Google Play Store
+                // Logika Fallback Package Name / Official Site
                 const pkgLink = document.getElementById('detail-package-link');
-                pkgLink.href = `https://play.google.com/store/apps/details?id=${appData.packageName}`;
+                const pkgIcon = document.getElementById('detail-package-icon');
+                const pkgLabel = document.getElementById('detail-package-label');
+                const pkgText = document.getElementById('detail-package');
 
-                // Menangani Mod Info List (Expand/Collapse)
+                if (appData.packageName && appData.packageName.trim() !== '') {
+                    // Ada di Play Store
+                    pkgLink.href = `https://play.google.com/store/apps/details?id=${appData.packageName}`;
+                    pkgIcon.className = "ph ph-google-play-logo text-slate-400 group-hover:text-brand-500 text-lg transition-colors";
+                    pkgLabel.textContent = "Package Name";
+                    pkgText.textContent = appData.packageName;
+                } else if (appData.officialSite && appData.officialSite.trim() !== '') {
+                    // Tidak ada di Play Store, gunakan Web App
+                    pkgLink.href = appData.officialSite;
+                    pkgIcon.className = "ph ph-globe text-slate-400 group-hover:text-brand-500 text-lg transition-colors";
+                    pkgLabel.textContent = "Official Site";
+                    pkgText.textContent = appData.officialSite;
+                } else {
+                    // Tidak ada keduanya
+                    pkgLink.removeAttribute('href');
+                    pkgIcon.className = "ph ph-app-window text-slate-400 text-lg";
+                    pkgLabel.textContent = "Package Name";
+                    pkgText.textContent = "Tidak Diketahui";
+                }
+
+                // Menangani Mod Info List
                 const modContainer = document.getElementById('detail-modinfo-container');
                 if (Array.isArray(appData.modInfo)) {
                     let html = '<ul class="list-disc pl-5 space-y-1">';
@@ -714,7 +910,7 @@
                     html += '</ul>';
                     
                     if (appData.modInfo.length > 3) {
-                        html += `<button id="mod-toggle-btn" onclick="app.toggleModList()" class="text-brand-400 hover:text-brand-300 text-xs mt-3 font-medium flex items-center gap-1 transition-colors bg-dark-bg/50 px-3 py-1.5 rounded-lg border border-brand-500/20">Tampilkan Semua Fitur Mod <i class="ph ph-caret-down"></i></button>`;
+                        html += `<button id="mod-toggle-btn" onclick="app.toggleModList()" class="text-brand-400 hover:text-brand-300 text-xs mt-3 font-medium flex items-center gap-1 transition-colors bg-dark-bg/50 px-3 py-1.5 rounded-lg border border-brand-500/20 shadow-sm">Tampilkan Semua Fitur Mod <i class="ph ph-caret-down"></i></button>`;
                     }
                     modContainer.innerHTML = html;
                 } else {
@@ -769,7 +965,7 @@
                 });
 
                 if (this.state.isModExpanded) {
-                    btn.innerHTML = 'Tampilkan Lebih Sedikit Fitur Mod <i class="ph ph-caret-up"></i>';
+                    btn.innerHTML = 'Sembunyikan Fitur Mod <i class="ph ph-caret-up"></i>';
                 } else {
                     btn.innerHTML = 'Tampilkan Semua Fitur Mod <i class="ph ph-caret-down"></i>';
                 }
@@ -779,8 +975,12 @@
                 const relatedGrid = document.getElementById('detail-related');
                 relatedGrid.innerHTML = '';
 
-                // Cari berdasarkan Genre Aplikasi
-                const related = appsDatabase.filter(a => a.genre === currentApp.genre && a.id !== currentApp.id).slice(0, 4);
+                // Cari berdasarkan Genre Aplikasi (Cek irisan array genres)
+                let related = appsDatabase.filter(a => {
+                    if (a.id === currentApp.id) return false;
+                    // Cek jika ada minimal 1 genre yang sama
+                    return a.genres && currentApp.genres && a.genres.some(g => currentApp.genres.includes(g));
+                }).slice(0, 4);
 
                 if (related.length === 0) {
                     relatedGrid.innerHTML = `<p class="text-slate-500 col-span-full bg-dark-card border border-dark-border p-4 rounded-xl text-center">Belum ada aplikasi serupa dalam kategori ini.</p>`;
@@ -822,7 +1022,7 @@
                     const results = appsDatabase.filter(app => 
                         app.title.toLowerCase().includes(query) || 
                         app.developer.toLowerCase().includes(query) ||
-                        app.packageName.toLowerCase().includes(query)
+                        (app.packageName && app.packageName.toLowerCase().includes(query))
                     ).slice(0, 5); 
 
                     resultsContainer.innerHTML = '';
@@ -855,7 +1055,7 @@
                 });
             },
 
-            // --- Modal Functions ---
+            // --- Modal Functions (Download & Notice Mod) ---
             showDownloadModal() {
                 const appData = this.state.selectedAppForModal;
                 if (!appData) return;
@@ -864,6 +1064,26 @@
                 document.getElementById('modal-app-title').textContent = appData.title;
                 document.getElementById('modal-app-size').textContent = `v${appData.version} • ${appData.size}`;
 
+                // Inject Notice Mod if exists
+                const noticeContainer = document.getElementById('modal-notice-container');
+                const noticeContent = document.getElementById('modal-notice-content');
+                this.state.isNoticeExpanded = false; // Reset state
+                document.getElementById('notice-chevron').classList.remove('rotate-180');
+                noticeContent.classList.add('hidden');
+
+                if (appData.noticeMod && appData.noticeMod.length > 0) {
+                    let html = '<ul class="list-disc pl-5 space-y-1">';
+                    appData.noticeMod.forEach(note => {
+                        html += `<li>${note}</li>`;
+                    });
+                    html += '</ul>';
+                    noticeContent.innerHTML = html;
+                    noticeContainer.classList.remove('hidden');
+                } else {
+                    noticeContainer.classList.add('hidden');
+                }
+
+                // Inject Download Links
                 const linksContainer = document.getElementById('download-links-container');
                 linksContainer.innerHTML = '';
 
@@ -899,6 +1119,20 @@
                 card.classList.add('scale-95');
                 
                 setTimeout(() => modal.classList.add('hidden'), 300);
+            },
+
+            toggleNoticeModal() {
+                this.state.isNoticeExpanded = !this.state.isNoticeExpanded;
+                const content = document.getElementById('modal-notice-content');
+                const chevron = document.getElementById('notice-chevron');
+
+                if (this.state.isNoticeExpanded) {
+                    content.classList.remove('hidden');
+                    chevron.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    chevron.classList.remove('rotate-180');
+                }
             }
         };
 
